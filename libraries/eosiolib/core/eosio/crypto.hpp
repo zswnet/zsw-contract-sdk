@@ -92,10 +92,11 @@ namespace eosio {
     *   0 : a ECC K1 public key
     *   1 : a ECC R1 public key
     *   2 : a WebAuthN public key (requires the host chain to activate the WEBAUTHN_KEY consensus upgrade)
+    *   3 : a 国密 (SM2) ECC public key 
     *
     *  @ingroup public_key
     */
-   using public_key = std::variant<ecc_public_key, ecc_public_key, webauthn_public_key>;
+   using public_key = std::variant<ecc_public_key, ecc_public_key, webauthn_public_key, ecc_public_key>;
 
 
    /// @cond IMPLEMENTATIONS
@@ -149,6 +150,15 @@ namespace eosio {
    using ecc_signature = std::array<char, 65>;
 
    /**
+    *  中数文联盟链 国密 ECC signature data
+    *
+    *  Fixed size representation of either a GM ECC compact signature
+
+    *  @ingroup signature
+    */
+   using sm2_signature = std::array<char, 105>;
+
+   /**
     *  EOSIO WebAuthN signature
     *
     *  @ingroup signature
@@ -188,12 +198,13 @@ namespace eosio {
     *
     *  A signature is a variant of
     *   0 : a ECC K1 signature
-    *   1 : a ECC R1 signatre
+    *   1 : a ECC R1 signature
     *   2 : a WebAuthN signature (requires the host chain to activate the WEBAUTHN_KEY consensus upgrade)
+    *   2 : a 国密 (SM2) signature
     *
     *  @ingroup signature
     */
-   using signature = std::variant<ecc_signature, ecc_signature, webauthn_signature>;
+   using signature = std::variant<ecc_signature, ecc_signature, webauthn_signature, sm2_signature>;
 
    /// @cond IMPLEMENTATIONS
 
